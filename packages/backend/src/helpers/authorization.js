@@ -1,4 +1,4 @@
-import NotAuthorizedError from '../errors/not-authorized.js';
+import NotAuthorizedError from '@/errors/not-authorized.js';
 
 const authorizationList = {
   'GET /internal/api/v1/users/:userId': {
@@ -159,6 +159,26 @@ const authorizationList = {
   },
   'GET /internal/api/v1/flows/:flowId/folder': {
     action: 'read',
+    subject: 'Flow',
+  },
+  'GET /internal/api/v1/forms/:formId': {
+    action: 'read',
+    subject: 'Flow',
+  },
+  'GET /internal/api/v1/forms/': {
+    action: 'read',
+    subject: 'Flow',
+  },
+  'POST /internal/api/v1/forms/': {
+    action: 'manage',
+    subject: 'Flow',
+  },
+  'PATCH /internal/api/v1/forms/:formId': {
+    action: 'manage',
+    subject: 'Flow',
+  },
+  'DELETE /internal/api/v1/forms/:formId': {
+    action: 'manage',
     subject: 'Flow',
   },
 };

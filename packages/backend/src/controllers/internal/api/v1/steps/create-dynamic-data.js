@@ -1,4 +1,4 @@
-import { renderObject } from '../../../../../helpers/renderer.js';
+import { renderObject } from '@/helpers/renderer.js';
 
 export default async (request, response) => {
   const step = await request.currentUser.authorizedSteps
@@ -10,7 +10,8 @@ export default async (request, response) => {
 
   const dynamicData = await step.createDynamicData(
     request.body.dynamicDataKey,
-    request.body.parameters
+    request.body.parameters,
+    request.currentUser
   );
 
   renderObject(response, dynamicData);

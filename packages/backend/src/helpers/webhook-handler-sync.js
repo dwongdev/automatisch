@@ -1,10 +1,10 @@
 import isEmpty from 'lodash/isEmpty.js';
 
-import Flow from '../models/flow.js';
-import { processTrigger } from '../services/trigger.js';
-import { processAction } from '../services/action.js';
-import globalVariable from './global-variable.js';
-import QuotaExceededError from '../errors/quote-exceeded.js';
+import Flow from '@/models/flow.js';
+import { processTrigger } from '@/services/trigger.js';
+import { processAction } from '@/services/action.js';
+import globalVariable from '@/helpers/global-variable.js';
+import QuotaExceededError from '@/errors/quote-exceeded.js';
 
 export default async (flowId, request, response) => {
   const flow = await Flow.query().findById(flowId).throwIfNotFound();
@@ -23,8 +23,9 @@ export default async (flowId, request, response) => {
     .orderBy('position', 'asc');
   const app = await triggerStep.getApp();
   const isWebhookApp = app.key === 'webhook';
+  const isFormsApp = app.key === 'forms';
 
-  if (testRun && !isWebhookApp) {
+  if (testRun && !isWebhookApp && !isFormsApp) {
     return response.status(404);
   }
 
